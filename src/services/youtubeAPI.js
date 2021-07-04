@@ -1,15 +1,26 @@
 import axios from 'axios'
-export default function search() {
-    axios.get('https://www.googleapis.com/youtube/v3/search', {
-        headers: {
-            'Authorization': `basic `
-        },
-        body: {
-            q: 'surf',
-        }
-    }).then((res) => {
-        console.log(res)
-    })
-}
+import env from '../env'
+var youtubeAPI = {
+    search: function (key) {
+        console.log(env.OAUTH_TOKEN + '/');
+        axios({
+            method: 'GET',
+            url: 'https://www.googleapis.com/youtube/v3/search',
+            headers: {
+                'Authorization': `Bearer ${env.OAUTH_TOKEN}`
+            },
+            params: {
+                part: "snippet",
+                q: key,
+            }
+        }).then(res => {
+            console.log(res);
+        })
+    },
 
+
+};
+
+
+export default youtubeAPI
 
