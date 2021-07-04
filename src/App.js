@@ -1,26 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
-///
-///
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import GoogleLogin from 'react-google-login';
+import env from './env'
+import search from './services/youtubeAPI'
 
+function App() {
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
+  function apicall() {
+    search();
+  }
+  return (
+    <div>
+      <GoogleLogin
+        clientId="843867201617-jslcpokp20n1p8m91c0k0d9nrv9s336t.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={'single_host_origin'}
+      />
+      <button onClick={() => { apicall() }}></button>
+    </div>
+  )
+
+}
 export default App;
