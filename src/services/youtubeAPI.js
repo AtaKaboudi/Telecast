@@ -1,9 +1,10 @@
 import axios from 'axios'
 import env from '../env'
 var youtubeAPI = {
-    search: function (key) {
+    async search(key) {
+        let result;
         console.log(env.OAUTH_TOKEN + '/');
-        axios({
+        return axios({
             method: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
             headers: {
@@ -11,10 +12,7 @@ var youtubeAPI = {
             },
             params: {
                 part: "snippet",
-                q: key,
             }
-        }).then(res => {
-            console.log(res);
         })
     },
 

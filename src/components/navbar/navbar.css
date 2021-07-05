@@ -1,0 +1,44 @@
+:root {
+    --colorA : #88BDBC ;
+    --colorB : #254E58 ;
+    --colorC : #112D32 ;
+    --colorD : #4F4A41 ;
+    --colorE : #6E6658;
+}
+.navBarWrapper {
+    background : var(--colorB);
+    width : 99vw;
+    height : 3em;
+    color : white ;
+    font-family: 'Quicksand';
+    display : inline-flex;
+    flex-direction : row ;
+    justify-content: space-between;
+    align-items: center;
+}
+.navBarWrapper Label {
+    margin-left : 10vw;
+    align-items: center;
+    font-size: 25px;
+    font-family: 'Quicksand';
+    letter-spacing: 2px;
+}
+.navBarWrapper div {
+    margin-right: 10vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.navBarWrapper div input {
+    border-radius: 12px;
+    width : 250px;
+    height: 5vh;
+    border: none ;
+    color : #BDBDBD ;
+    background : var(--colorC) ;
+    padding-left: 1vw;
+    align-items:center
+}
+.navBarWrapper div form {
+    margin-top:2vh
+}

@@ -1,0 +1,10 @@
+.mainSuggestionsWrapper  h1 {
+    font-size : 24px;
+    width : 100%;
+    margin : 10vh 3vw 0px ;
+}
+.mainSuggestionsWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
