@@ -1,11 +1,12 @@
 import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Auth from './components/Auth/auth'
+
 import NavBar from './components/navbar/navbar';
 import Suggestions from './components/mainSuggestions/mainSuggestions';
 import { useEffect, useState } from 'react'
 import youtubeAPI from './services/youtubeAPI';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import VideoFeed from './components/videoFeed/videoFeed';
 function App() {
   let raw = {
     "kind": "youtube#searchListResponse",
@@ -872,19 +873,30 @@ function App() {
 
   let [videosList, setVideosList] = useState(raw.items.map(element => { return ({ ...element.id, ...element.snippet }) }));
   useEffect(() => {
-    // youtubeAPI.search().then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
-    videosList = raw.items.map(element => { return ({ ...element.id, ...element.snippet }) });
+    //youtubeAPI.search().then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
   }, [])
 
   function search(key) {
     youtubeAPI.search(key).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
   }
+  console.log(videosList);
   return (
     <div>
-      <NavBar search={search} />
-      <Suggestions videosList={videosList} />
+      <Switch>
+
+        <Route path="/" render={(props) => <div>
+          <NavBar search={search} />
+          <Suggestions videosList={videosList} />
+        </div>} exact />
+
+        <Route path="/video/:videoId" component={VideoFeed} />
+      </Switch>
+
     </div>
   )
 
 }
 export default App;
+
+
+

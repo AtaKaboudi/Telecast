@@ -8,6 +8,7 @@ function Auth() {
     const responseGoogle = (response) => {
         if (!response.accessToken) { console.log('[AUTH] OAUTH TOKEN MISSING'); console.log(response); return }
         console.log("IS LOGGED IN");
+        console.log(response.accessToken);
         env.OAUTH_TOKEN = response.accessToken;
         setIsLoggedIn(true);
     }

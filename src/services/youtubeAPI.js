@@ -3,7 +3,6 @@ import env from '../env'
 var youtubeAPI = {
     async search() {
         let result;
-        console.log(env.OAUTH_TOKEN + '/');
         return axios({
             method: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
@@ -17,8 +16,6 @@ var youtubeAPI = {
         })
     },
     async search(key) {
-        let result;
-        console.log(env.OAUTH_TOKEN + '/');
         return axios({
             method: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
@@ -32,7 +29,35 @@ var youtubeAPI = {
             }
         })
     },
+    async related(id) {
+        return axios({
+            method: 'GET',
 
+            url: 'https://www.googleapis.com/youtube/v3/search',
+            headers: {
+                'Authorization': `Bearer ${env.OAUTH_TOKEN}`
+            },
+            params: {
+                part: "snippet",
+                maxResults: 8,
+                relatedToVideoId: id,
+                type: "video"
+            }
+        })
+    },
+    async videoDetails(id) {
+        return axios({
+            method: 'GET',
+            url: 'https://www.googleapis.com/youtube/v3/videos',
+            headers: {
+                'Authorization': `Bearer ${env.OAUTH_TOKEN}`
+            },
+            params: {
+                part: "snippet,contentDetails,statistics",
+                id: id,
+            }
+        }).then(res => console.log(res));
+    }
 
 };
 

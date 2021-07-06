@@ -30,6 +30,8 @@
     text-align: start;
     font-size: 15px ;
     line-height: 16px;
+    height: 16vh;
+    overflow: hidden;
 }
 .videoWrapper div {
     display: flex;
@@ -38,3 +40,4 @@
     align-items: center;
     font-size:12px
 }
+
