@@ -22,6 +22,7 @@
     font-size: 25px;
     font-family: 'Quicksand';
     letter-spacing: 2px;
+    cursor : pointer
 }
 .navBarWrapper div {
     margin-right: 10vw;

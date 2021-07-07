@@ -1,0 +1,9 @@
+.detailsWrapper {
+    align-items : center;
+    margin-left : 15vw 
+}
+.detailsWrapper h1 {
+    font-size : 22px ;
+
+    color :red;
+}

@@ -6,6 +6,8 @@ import youtubeAPI from '../../services/youtubeAPI';
 import Video from '../mainSuggestions/Video/videos';
 import { useEffect, useState } from 'react';
 import Suggestions from '../mainSuggestions/mainSuggestions';
+import React from 'react';
+import Detail from './details/details';
 function VideoFeed() {
     let raw = {
         "kind": "youtube#searchListResponse",
@@ -871,15 +873,20 @@ function VideoFeed() {
     }
     let history = useHistory();
     let [videosList, setVideosList] = useState(raw.items.map(element => { return ({ ...element.id, ...element.snippet }) }));
+    let [videoDetails, setVideoDetails] = useState({})
     let { videoId } = useParams();
     let url = env.BASE_FEED_URL + videoId;
     function back() {
         history.push('/');
     }
     useEffect(() => {
-        youtubeAPI.related(videoId).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
-        //  youtubeAPI.videoDetails(videoId);
+        youtubeAPI.related(videoId).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })))
+        youtubeAPI.videoDetails(videoId).then(res => console.log(res.data.items.map(element => { return ({ ...element.contentDetails, ...element.snippet, ...element.statistics }) })[0]));
     }, [])
+
+    function scrollUp() {
+        window.scrollTo(0, 0)
+    }
 
     return (
         <div className="videoFeed">
@@ -888,7 +895,8 @@ function VideoFeed() {
                 <span className="material-icons">keyboard_backspace</span>
                 <h1>Back</h1>
             </div>
-            <iframe width="853" height="480" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <iframe ref={scrollUp} width="853" height="480" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <Detail params={videoDetails} />
             <Suggestions videosList={videosList} />
         </div>
     )

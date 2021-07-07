@@ -5,18 +5,19 @@ import Video from './Video/videos';
 import NavBar from '../navbar/navbar';
 function Suggestions(props) {
     let videosList = props.videosList;
-
     return (
         <div className="mainSuggestionsWrapper">
 
             <h1>Suggestions</h1>
             {
                 videosList.map(element => {
+                    if (!element.thumbnails) return ""
                     return (
                         <Video params={element} key={element.videoId} />
                     )
 
                 })
+
             }
         </div >
 

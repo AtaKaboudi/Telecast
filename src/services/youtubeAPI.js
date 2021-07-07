@@ -43,7 +43,7 @@ var youtubeAPI = {
                 relatedToVideoId: id,
                 type: "video"
             }
-        })
+        });
     },
     async videoDetails(id) {
         return axios({
@@ -56,7 +56,7 @@ var youtubeAPI = {
                 part: "snippet,contentDetails,statistics",
                 id: id,
             }
-        }).then(res => console.log(res));
+        })
     }
 
 };

@@ -24,6 +24,9 @@
 .videoWrapper h2 {
     font-size : 14px;
     text-align: center;
+    align-items: center;
+    max-width : 24vw
+
 }
 .videoWrapper p {
     margin-top: 0 ;
@@ -32,12 +35,14 @@
     line-height: 16px;
     height: 16vh;
     overflow: hidden;
+    max-width : 24vw
+
 }
 .videoWrapper div {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    font-size:12px
+    font-size:12px;
 }
 
