@@ -873,13 +873,16 @@ function App() {
 
   let [videosList, setVideosList] = useState(raw.items.map(element => { return ({ ...element.id, ...element.snippet }) }));
   useEffect(() => {
-    //youtubeAPI.search().then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
+    youtubeAPI.search().then(res => {
+      let newValue = res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })
+      newValue[0].pageDetails = res.data.pageInfo;
+      setVideosList(newValue);
+    });
   }, [])
 
   function search(key) {
     youtubeAPI.search(key).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
   }
-  console.log(videosList);
   return (
     <div>
       <Switch>

@@ -19,6 +19,11 @@ function Suggestions(props) {
                 })
 
             }
+            {videosList[0].pageDetails ?
+                <h3>{videosList[0].pageDetails.totalResults} <label>Results</label></h3>
+                :
+                ""
+            }
         </div >
 
     )

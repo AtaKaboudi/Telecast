@@ -1,16 +1,15 @@
-.videoFeed iframe {
-    margin : 1vh 15vw 0 15vw;
-}
+
 .backWrapper  span {
     color : var(--colorD);
     margin : 5px 5px
 }
 .backWrapper h1 {
     font-size : 16px;
+    cursor:pointer
 }
 .backWrapper{
     cursor : pointer;
-    margin : 5vh 10vw  ;
+    margin : 2vh 5vw  ;
     margin-bottom : 0;
     align-items: center;
     display : flex;

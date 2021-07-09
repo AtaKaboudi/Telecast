@@ -874,28 +874,33 @@ function VideoFeed() {
     let history = useHistory();
     let [videosList, setVideosList] = useState(raw.items.map(element => { return ({ ...element.id, ...element.snippet }) }));
     let [videoDetails, setVideoDetails] = useState({})
+    let pageDetails;
     let { videoId } = useParams();
     let url = env.BASE_FEED_URL + videoId;
     function back() {
         history.push('/');
     }
     useEffect(() => {
-        youtubeAPI.related(videoId).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })))
-        youtubeAPI.videoDetails(videoId).then(res => console.log(res.data.items.map(element => { return ({ ...element.contentDetails, ...element.snippet, ...element.statistics }) })[0]));
+        youtubeAPI.related(videoId).then(res => {
+            setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) }))
+            videosList.pageDetails = res.data.pageInfo;
+            console.log(videosList)
+        })
+        youtubeAPI.videoDetails(videoId).then(res => setVideoDetails(res.data.items.map(element => { return ({ ...element.contentDetails, ...element.snippet, ...element.statistics }) })[0]));
     }, [])
 
     function scrollUp() {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 50)
     }
 
     return (
         <div className="videoFeed">
             <NavBar />
-            <div className="backWrapper" onClick={() => { back() }}>
+            <iframe ref={scrollUp} width="100%" height="100%" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <div className="backWrapper" >
                 <span className="material-icons">keyboard_backspace</span>
-                <h1>Back</h1>
+                <h1 onClick={() => { back() }}>Back</h1>
             </div>
-            <iframe ref={scrollUp} width="853" height="480" src={url} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             <Detail params={videoDetails} />
             <Suggestions videosList={videosList} />
         </div>
