@@ -1,12 +1,13 @@
 import './App.css';
 import React from 'react';
-
 import NavBar from './components/navbar/navbar';
 import Suggestions from './components/mainSuggestions/mainSuggestions';
 import { useEffect, useState } from 'react'
 import youtubeAPI from './services/youtubeAPI';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import VideoFeed from './components/videoFeed/videoFeed';
+import {suggestionVideos} from './redux/store'
+/* eslint-disable */
 function App() {
   let raw = {
     "kind": "youtube#searchListResponse",
@@ -872,21 +873,26 @@ function App() {
   }
 
   let [videosList, setVideosList] = useState(raw.items.map(element => { return ({ ...element.id, ...element.snippet }) }));
-  useEffect(() => {
-    youtubeAPI.search().then(res => {
-      let newValue = res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })
-      newValue[0].pageDetails = res.data.pageInfo;
-      setVideosList(newValue);
-    });
-  }, [])
-
+  useEffect(async () => {
+    const res = await youtubeAPI.search()    
+    let newValue = res.data.items.map(element => ({ ...element.id, ...element.snippet }))
+    newValue[0].pageDetails = res.data.pageInfo;
+    newValue[0].nextPageToken = res.data.nextPageToken;
+    setVideosList(newValue);
+  }
+    , []);
   function search(key) {
     youtubeAPI.search(key).then(res => setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) })));
   }
+  suggestionVideos.subscribe(() => {
+    console.log(videosList[0].nextPageToken);
+    console.log(suggestionVideos.getState());
+  })
+//      <button onClick ={()=>{suggestionVideos.dispatch({type:'UPDATE',payload : videosList[0].nextPageToken})}}></button>
+
   return (
     <div>
       <Switch>
-
         <Route path="/" render={(props) => <div>
           <NavBar search={search} />
           <Suggestions videosList={videosList} />

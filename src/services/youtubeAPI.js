@@ -2,7 +2,6 @@ import axios from 'axios'
 import env from '../env'
 var youtubeAPI = {
     async search() {
-        let result;
         return axios({
             method: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
@@ -15,8 +14,23 @@ var youtubeAPI = {
             }
         })
     },
+    async nextPage(pageToken ) {
+        return await axios({
+            method: 'GET',
+            url: 'https://www.googleapis.com/youtube/v3/search',
+            headers: {
+                'Authorization': `Bearer ${env.OAUTH_TOKEN}`
+            },
+            params: {
+                part: "snippet",
+                maxResults: 12,
+                pageToken: pageToken 
+            }
+        })
+
+    },
     async search(key) {
-        return axios({
+         return axios({
             method: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
             headers: {

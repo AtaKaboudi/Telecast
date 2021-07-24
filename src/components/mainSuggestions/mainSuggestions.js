@@ -11,7 +11,7 @@ function Suggestions(props) {
             <h1>Suggestions</h1>
             {
                 videosList.map(element => {
-                    if (!element.thumbnails) return ""
+                    if ((!element.thumbnails) || (!element.description)) return ""
                     return (
                         <Video params={element} key={element.videoId} />
                     )

@@ -884,7 +884,6 @@ function VideoFeed() {
         youtubeAPI.related(videoId).then(res => {
             setVideosList(res.data.items.map(element => { return ({ ...element.id, ...element.snippet }) }))
             videosList.pageDetails = res.data.pageInfo;
-            console.log(videosList)
         })
         youtubeAPI.videoDetails(videoId).then(res => setVideoDetails(res.data.items.map(element => { return ({ ...element.contentDetails, ...element.snippet, ...element.statistics }) })[0]));
     }, [])

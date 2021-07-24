@@ -8,7 +8,6 @@ function Video(props) {
     const redirectToFeed = (e) => {
         let url = "/video/" + params.videoId;
         history.push(url);
-
     }
     return (
         <div className="videoWrapper" onClick={(e) => { redirectToFeed(e) }}>
