@@ -1,19 +1,37 @@
-.mainSuggestionsWrapper  h1 {
-    font-size : 24px;
-    width : 100%;
-    margin : 10vh 3vw 0px ;
+.mainSuggestionsWrapper h1 {
+	font-size: 24px;
+	width: 100%;
+	margin: 10vh 3vw 0px;
 }
 .mainSuggestionsWrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
-.mainSuggestionsWrapper h3 {
-    margin : 7vh 40vw;
-    font-size : 24px ; 
-    color : var(--colorC)
-}   
-.mainSuggestionsWrapper h3 label {
-    font-size: 16px;
-    color : var(--colorA)
+
+footer {
+	width: 100vw;
+	margin-top: 2vh;
+	display: inline-flex;
+	flex-direction: row;
+	justify-self: center;
+	justify-content: center;
+	align-items: top;
+}
+
+footer div {
+	margin-right: 3vw;
+	margin-bottom: 2vh;
+	text-align: center;
+	align-items: top;
+}
+footer h3 {
+	margin: 0;
+	color: var(--colorA);
+}
+footer button {
+	border: none;
+	background-color: transparent;
+	font-size: 16px;
+	cursor: pointer;
 }

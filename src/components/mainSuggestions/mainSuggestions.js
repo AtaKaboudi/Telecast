@@ -2,9 +2,39 @@ import './mainSuggestions.css'
 import { useState, useEffect } from 'react'
 import youtubeAPI from '../../services/youtubeAPI';
 import Video from './Video/videos';
-import NavBar from '../navbar/navbar';
+import { suggestionVideos } from '../../redux/store';
+/*eslint-disable*/
 function Suggestions(props) {
-    let videosList = props.videosList;
+       
+    let [videosList, setVideosList] = useState();
+    function trimApiData(res) {
+          
+        let newValue = res.data.items.map(element => ({ ...element.id, ...element.snippet }))
+        newValue[0].pageDetails = res.data.pageInfo;
+        newValue[0].nextPageToken = res.data.nextPageToken;
+        return newValue
+        
+    }
+
+    useEffect(async () => {
+        suggestionVideos.dispatch({type : 'SUGGEST'})
+        suggestionVideos.getState().then(res => {
+             setVideosList(TrimApiData(res))
+        })
+      }
+        , []);
+
+    
+    suggestionVideos.subscribe(async () => {
+        await suggestionVideos.getState().then((res) => {
+          setVideosList(trimApiData(res))
+         }
+      );
+      })
+      function nextPage() {
+        suggestionVideos.dispatch({type:'UPDATE',payload : videosList[0].nextPageToken})
+    }
+    
     return (
         <div className="mainSuggestionsWrapper">
 
@@ -20,13 +50,24 @@ function Suggestions(props) {
 
             }
             {videosList[0].pageDetails ?
-                <h3>{videosList[0].pageDetails.totalResults} <label>Results</label></h3>
+                <footer >
+                    <div>
+                        <h3>{videosList[0].pageDetails.totalResults}</h3>
+                        <label>Results</label>
+                    </div>
+                    <button onClick = { nextPage}>
+                    <span class="material-icons">arrow_forward_ios</span>
+                    </button>
+                </footer>
                 :
                 ""
             }
         </div >
 
     )
+    
+
+   return <h1>Shit</h1>
 }
 
 

@@ -15,6 +15,7 @@
 }
 .videoWrapper img {
 	width: 23vw;
+	max-height: 25vh;
 }
 
 .videoWrapper:hover {
